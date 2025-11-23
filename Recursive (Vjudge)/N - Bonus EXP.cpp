@@ -71,6 +71,7 @@ ll lcm(ll a, ll b){ return a / gcd(a, b) * b; }
 //--------------------------------------------------Global Memory-------------------------------------------------------
 ll n;
 vll arr;
+vvll dp;
 //----------------------------------------------------Functions---------------------------------------------------------
 void fast() {
     ios_base::sync_with_stdio(false);
@@ -83,17 +84,20 @@ void set_file(string &file_name) {
     freopen((file_name + ".out").c_str(), "w", stdout);
 }
 
-ll spell(ll i, ll defeated_count) {
+ll spell(ll i, ll parity) {
     if (i == n) return 0;
 
-    ll ch1 = spell(i+1, defeated_count);
+    if (~dp[i][parity])
+        return dp[i][parity];
+
+    ll ch1 = spell(i+1, parity);
 
     ll gain = arr[i];
-    if ((defeated_count + 1) % 2 == 0) gain *= 2;
+    if ((parity + 1) % 2 == 0) gain *= 2;
 
-    ll ch2 = spell(i + 1, defeated_count + 1) + gain;
+    ll ch2 = gain + spell(i+1, (parity + 1) % 2);
 
-    return max(ch1, ch2);
+    return dp[i][parity] = max(ch1, ch2);
 }
 
 void magic() {
@@ -101,6 +105,8 @@ void magic() {
 
     arr.resize(n);
     for (ll i=0; i<n; i++) cin >> arr[i];
+
+    dp.assign(n, vll(2, -1));
 
     cout << spell(0, 0);
 }
