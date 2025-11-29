@@ -101,7 +101,7 @@ int spell(int l, int r) {
 
     int ans = 0;
     for (int k=l+1; k<r; k++) {
-        int now = spell(l, k) + spell(k+1, r) + arr[l] * arr[r];
+        int now = spell(l, k) + spell(k, r) + arr[l] * arr[r];
         ans = max(ans, now);
     }
 
