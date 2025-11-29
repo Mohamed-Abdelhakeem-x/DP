@@ -102,7 +102,8 @@ int spell(int l, int r) {
 
     int ans = INF;
     for (int k = l; k < r; k++) {
-        ans = min(ans, spell(l, k) + spell(k + 1, r));
+        int num = spell(l, k) + spell(k+1, r);
+        ans = min(ans, num);
     }
 
     return dp[l][r] = ans + prfx[r] - (l ? prfx[l - 1] : 0);
