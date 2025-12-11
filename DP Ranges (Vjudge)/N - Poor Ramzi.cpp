@@ -119,16 +119,6 @@ void set_file(string& file_name) {
     freopen((file_name + ".out").c_str(), "w", stdout);
 }
 
-bool Pal(string ss) {
-    int l = 0, r = ss.size() - 1;
-    while (l < r) {
-        if (ss[l] != ss[r]) return false;
-        l++;
-        r--;
-    }
-    return true;
-}
-
 ll spell (int l, int r) {
     if (l > r)
         return 1;
